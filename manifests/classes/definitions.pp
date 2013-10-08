@@ -18,3 +18,6 @@ $redmine_url = "http://rubyforge.org/frs/download.php/77138/redmine-${redmine_ve
 $installdir = "/home/${user}/redmine"
 $redminedir = "${installdir}/redmine-${redmine_version}"
 
+#server
+$port = 80
+$host = 'redmine.kawaz.org'

@@ -10,4 +10,5 @@ class package::install {
   package { 'ImageMagick-devel': 
     require => [Package['libjpeg-devel'], Package['libpng-devel']]
   }
+  package { 'curl-devel': }
 }

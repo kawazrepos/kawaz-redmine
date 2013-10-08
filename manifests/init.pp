@@ -6,12 +6,14 @@ class kawaz_redmine {
   include ruby
   include database
   include redmine
+  include server
 
   Class['package::install'] 
   -> Class['user'] 
   -> Class['ruby'] 
   -> Class['database'] 
   -> Class['redmine']
+  -> Class['server']
 
 }
 
