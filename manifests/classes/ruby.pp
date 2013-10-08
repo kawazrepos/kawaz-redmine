@@ -41,7 +41,8 @@ class ruby::rehash {
   exec {'rehash':
     user => $user,
     cwd => $home,
-    path => [$ruby_path],
+    path => ['/bin', '/usr/bin', "$home/.rbenv/bin"],
+    environment => ["HOME=$home"],
     command => 'rbenv rehash'
   }
 

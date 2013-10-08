@@ -53,7 +53,7 @@ class redmine::setup {
     user => $user,
     cwd => $redminedir,
     path => [$ruby_path, '/bin', '/usr/bin'],
-    environment => ["HOME=/home/$user"],
+    environment => ["HOME=$home"],
     command => "bundle exec rake generate_secret_token",
     require => Exec['bundle_install']
   }
@@ -62,7 +62,7 @@ class redmine::setup {
     user => $user,
     cwd => $redminedir,
     path => [$ruby_path, '/bin', '/usr/bin'],
-    environment => ['RAILS_ENV=production', "HOME=/home/$user"],
+    environment => ['RAILS_ENV=production', "HOME=$home"],
     command => "bundle exec rake db:migrate",
     require => Exec['create_secret_token']
   }
