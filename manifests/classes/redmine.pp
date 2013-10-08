@@ -68,5 +68,3 @@ class redmine::setup {
   }
 
 }
-
-include redmine

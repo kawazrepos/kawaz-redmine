@@ -18,10 +18,10 @@ class server::setup {
 class server::module {
   exec { 'install_passenger':
     user => $user,
-    pwd => $home,
+    cwd => $home,
     path => [$ruby_path, '/usr/bin', '/bin'],
     environment => ["HOME=$home"],
-    command => "passenger-install-apache2-module",
+    command => "passenger-install-apache2-module -a",
     require => Class['server::setup']
   }
 }
