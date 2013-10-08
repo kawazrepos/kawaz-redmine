@@ -6,6 +6,7 @@ class server {
 }
 
 class server::setup {
+  include apache
 
   apache::vhost { $host:
     port    => '80',
@@ -15,12 +16,12 @@ class server::setup {
 }
 
 class server::module {
-  exec {
+  exec { 'install_passenger':
     user => $user,
     pwd => $home,
     path => [$ruby_path, '/usr/bin', '/bin'],
     environment => ["HOME=$home"],
-    command => "passenger-install-apache2-module"
+    command => "passenger-install-apache2-module",
     require => Class['server::setup']
   }
 }
