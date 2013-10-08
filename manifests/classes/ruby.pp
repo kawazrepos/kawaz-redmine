@@ -28,7 +28,7 @@ class ruby::setup {
   }
    
   file {
-    "/home/${user}/.bash_profile":
+    "$home/.bash_profile":
       content => template('bash_profile'),
       owner => $user,
       mode => 644;
