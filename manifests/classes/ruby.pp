@@ -38,7 +38,7 @@ class ruby::setup {
 
 class ruby::rehash {
 
-  exec {'rehash'
+  exec {'rehash':
     user => $user,
     cwd => $home,
     path => [$ruby_path],

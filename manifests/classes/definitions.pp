@@ -1,5 +1,6 @@
 $user = 'redmine'
 $home = "/home/$user"
+$user_password = 'hogehoge'
 
 # Ruby
 $ruby_version = '1.9.3-p448'
