@@ -21,3 +21,5 @@ $redminedir = "${installdir}/redmine-${redmine_version}"
 #server
 $port = 80
 $host = 'redmine.kawaz.org'
+
+$default_pathes = ['/bin', '/usr/bin', $ruby_path]

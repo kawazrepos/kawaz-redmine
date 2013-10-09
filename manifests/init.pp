@@ -7,6 +7,7 @@ class kawaz_redmine {
   include database
   include redmine
   include server
+  include plugin
   include iptables
 
   iptables::allow { 'tcp/80': port => '80', protocol => 'tcp' }
@@ -17,6 +18,7 @@ class kawaz_redmine {
   -> Class['database'] 
   -> Class['redmine']
   -> Class['server']
+  -> Class['plugin']
 
 }
 

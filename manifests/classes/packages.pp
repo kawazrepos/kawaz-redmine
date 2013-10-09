@@ -1,4 +1,6 @@
 class package::install {
+  package { 'git': }
+  package { 'mercurial': }
   package { 'libxml2-devel': }
   package { 'libxslt-devel': }
   package { 'mysql-devel': }

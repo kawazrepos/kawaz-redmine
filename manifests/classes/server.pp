@@ -2,9 +2,11 @@ class server {
   include server::setup
   include server::permission
   include server::module
+  include server::httpd
 
   Class['server::setup'] 
   -> Class['server::module']
+  ~> Class['server::httpd']
 }
 
 class server::setup {
@@ -12,7 +14,7 @@ class server::setup {
   class { 'apache':
     default_mods => false,
     default_vhost => false,
-    service_emanle => true
+    service_enable => true
   }
 
   apache::vhost { $host:
@@ -51,5 +53,8 @@ class server::module {
     environment => ["HOME=$home"],
     command => "passenger-install-apache2-module --snippet > /etc/httpd/conf.d/passenger.conf",
   }
-
 }
+
+class server::httpd {
+}
+
