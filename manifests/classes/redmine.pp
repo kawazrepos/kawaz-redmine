@@ -27,7 +27,7 @@ class redmine::install {
     path => ['/bin'],
     command => "tar zxvf redmine-${redmine_version}.tar.gz",
     creates => $redminedir,
-    require => Exec["fetch_redmine"]
+    require => [Exec["fetch_redmine"], File[$installdir]]
   }
 
 }
@@ -35,10 +35,7 @@ class redmine::install {
 
 class redmine::setup {
   file { "${redminedir}/config/database.yml":
-    ensure => 'present',
-    owner => $user,
-    mode => '0755',
-    content => template('database.yml.erb')
+    ensure => 'present'
   }
   
   exec { "bundle_install":
@@ -46,7 +43,7 @@ class redmine::setup {
     cwd => $redminedir,
     path => [$ruby_path, '/bin', '/usr/bin', '/usr/lib/mysql'],
     command => "bundle install",
-    require => File["${redminedir}/config/database.yml"]
+    require => [File["${redminedir}/config/database.yml"], Class['ruby::setup']]
   }
 
   exec { 'create_secret_token':

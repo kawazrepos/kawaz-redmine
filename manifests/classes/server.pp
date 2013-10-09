@@ -1,21 +1,37 @@
 class server {
   include server::setup
+  include server::permission
   include server::module
 
-  Class['server::setup'] -> Class['server::module']
+  Class['server::setup'] 
+  -> Class['server::module']
 }
 
 class server::setup {
-  include apache
+
+  class { 'apache':
+    default_mods => false,
+    default_vhost => false,
+    service_emanle => true
+  }
 
   apache::vhost { $host:
     port    => '80',
     docroot => "$redminedir/public",
     docroot_owner => $user,
     docroot_group => $user,
-    default_mods => false
+    priority => 1
   }
 
+}
+
+class server::permission {
+  file { $home:
+    recurse => true,
+    owner => $user,
+    group => $group,
+    mode => '755'
+  }
 }
 
 class server::module {
@@ -34,7 +50,6 @@ class server::module {
     path => [$ruby_path, '/usr/bin', '/bin'],
     environment => ["HOME=$home"],
     command => "passenger-install-apache2-module --snippet > /etc/httpd/conf.d/passenger.conf",
-    require => Exec['install_passenger']
   }
 
 }
