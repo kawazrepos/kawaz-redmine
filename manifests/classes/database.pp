@@ -1,8 +1,8 @@
 class database {
+  Class['database::setup'] -> Class['database::create']
+
   include database::setup
   include database::create
-
-  Class['database::setup'] -> Class['database::create']
 }
 
 class database::setup {
@@ -16,9 +16,9 @@ class database::setup {
 }
 
 class database::create {
-  mysql::db { $db_name:
-    user     => $username,
-    password => $password,
+  mysql::db { $redmine_db_name:
+    user     => $redmine_db_username,
+    password => $redmine_db_password,
     host     => 'localhost',
     grant    => ['ALL'],
   }

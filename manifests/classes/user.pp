@@ -1,9 +1,9 @@
 class user {
-  user { $user:
+  user { $redmine_user:
     ensure     => present,
-    comment    => $user,
-    home       => $home,
-    password   => sha1($user_password),
+    comment    => $redmine_user,
+    home       => $redmine_home,
+    password   => sha1($redmine_user_password),
     managehome => true,
     shell      => '/bin/bash'
   }
