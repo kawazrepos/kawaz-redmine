@@ -63,7 +63,7 @@ class plugin::bundle {
     user => $redmine_user,
     cwd => "$redminedir",
     path => $default_pathes,
-    environment => ['RAILS_ENV=production'],
+    environment => ['RAILS_ENV=production', "HOME=$redmine_home"],
     command => "bundle install;rake redmine:plugins:migrate",
     require => Class['plugin::install']
   }
