@@ -64,6 +64,7 @@ class redmine::install {
     path => ['/usr/bin'],
     command => "wget ${redmine_url}",
     creates => "$redmine_home/redmine-${redmine_version}.tar.gz",
+    require => Class['user']
   }
 
   exec { 'expand_redmine':
@@ -88,7 +89,8 @@ class redmine::install {
 
 class redmine::setup {
   file { "${redminedir}/config/database.yml":
-    ensure => 'present'
+    ensure => 'present',
+    content => template('database.yml.erb')
   }
   
   exec { "bundle_install":
@@ -96,7 +98,10 @@ class redmine::setup {
     cwd => $redminedir,
     path => [$redmine_ruby_path, '/bin', '/usr/bin', '/usr/lib/mysql'],
     command => "bundle install",
-    require => [File["${redminedir}/config/database.yml"], Class['redmine::ruby::setup']]
+    require => [File["${redminedir}/config/database.yml"], 
+                Class['redmine::ruby::setup'],
+                Class['package::install']
+    ],
   }
 
   exec { 'create_secret_token':
@@ -117,4 +122,15 @@ class redmine::setup {
     require => Exec['create_secret_token']
   }
 
+  file { "$redminedir/plugins":
+    ensure => 'directory'
+  }
+
+}
+
+class redmine::restart {
+  file {"$redminedir/tmp/restart.txt":
+    present => true,
+    subscribe => Class['plugin::bundle']
+  }
 }
