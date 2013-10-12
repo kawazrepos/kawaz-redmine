@@ -9,7 +9,7 @@ class package::install {
   package { 'libcurl-devel': }
   package { 'httpd-devel': }
   package { 'apr-devel': }
-  package { 'libicu.x86_64-devel': }
+  package { 'libicu-devel.x86_64': }
   package { 'apr-util-devel': require => Package['apr-devel'] }
 
   exec { 'fetch-redis':
@@ -29,12 +29,20 @@ class package::install {
     require => Exec['fetch-redis']
   }
 
+  exec { 'make-redis':
+    user => 'root',
+    cwd => '/root/redis-2.6.10',
+    path => ['/bin', '/usr/bin'],
+    command => 'make',
+    require => Exec['expand-redis']
+  }
+
   exec { 'install-redis':
     user => 'root',
     cwd => '/root/redis-2.6.10',
     path => ['/bin', '/usr/bin'],
-    command => 'make;make install',
-    require => Exec['expand-redis']
+    command => 'make install',
+    require => Exec['make-redis']
   }
 
 }
