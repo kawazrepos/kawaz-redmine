@@ -3,9 +3,9 @@ class server {
   Class['server::setup'] 
   -> Class['server::module']
 
-  include server::setup
-  include server::permission
-  include server::module
+  require server::setup
+  require server::permission
+  require server::module
 }
 
 class server::setup {
@@ -16,14 +16,14 @@ class server::setup {
     service_enable => true
   }
 
-  apache::vhost { $host:
+  apache::vhost { 'redmine.kawaz.org':
     port    => '80',
     docroot => "$redminedir/public",
     docroot_owner => $redmine_user,
     docroot_group => $redmine_user,
     priority => 1
   }
-
+ 
 }
 
 class server::permission {

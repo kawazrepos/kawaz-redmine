@@ -1,7 +1,8 @@
+import '../definitions.pp'
 import 'classes/*'
 
-class kawaz_development {
-  include iptables
+class kawaz_redmine {
+  require iptables
 
   iptables::allow { 'tcp/80': port => '80', protocol => 'tcp' }
 
@@ -12,12 +13,12 @@ class kawaz_development {
   -> Class['server']
   -> Class['plugin']
 
-  include package::install
-  include user
-  include database
-  include redmine
-  include server
-  include plugin
+  require package::install
+  require user
+  require database
+  require redmine
+  require server
+  require plugin
 }
 
-class { 'kawaz_development': }
+class { 'kawaz_redmine': }

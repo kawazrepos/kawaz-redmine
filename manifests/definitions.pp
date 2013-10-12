@@ -27,6 +27,16 @@ $redminedir = "$redmine_home/redmine-$redmine_version"
 # GitLab     #
 ##############
 
+$gitlab_user = 'gitlab'
+$gitlab_home = "/home/$gitlab_user"
 
+$gitlab_db_name = 'gitlabhq_production'
+$gitlab_db_username = 'gitlab'
+$gitlab_db_password = 'hogehoge'
+
+$gitlabdir = "$gitlab_home/gitlab"
+
+$gitlab_ruby_version = '2.0.0-p195'
+$gitlab_ruby_path = "$gitlab_home/.rbenv/shims"
 
 $default_pathes = ['/bin', '/usr/bin', $redmine_ruby_path]

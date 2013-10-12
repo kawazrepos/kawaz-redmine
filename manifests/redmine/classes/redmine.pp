@@ -1,7 +1,7 @@
 class redmine {
-  include redmine::ruby
-  include redmine::install
-  include redmine::setup
+  require redmine::ruby
+  require redmine::install
+  require redmine::setup
 
   Class['redmine::ruby'] 
   -> Class['redmine::install'] 
@@ -9,8 +9,8 @@ class redmine {
 }
 
 class redmine::ruby {
-  include redmine::ruby::setup
-  include redmine::ruby::rehash
+  require redmine::ruby::setup
+  require redmine::ruby::rehash
 
   Class['redmine::ruby::setup'] ~> Class['redmine::ruby::rehash']
 
@@ -37,8 +37,8 @@ class redmine::ruby::setup {
     ]:
   }
    
-  file { "$redmine_home/.bash_profile":
-      content => template('bash_profile'),
+  file { "$redmine_home/.bashrc":
+      content => template('bashrc'),
       owner => $redmine_user,
       mode => 644;
   }

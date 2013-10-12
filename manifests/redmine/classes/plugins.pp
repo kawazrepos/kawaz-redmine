@@ -1,6 +1,6 @@
 class plugin {
-  include plugin::install
-  include plugin::bundle
+  require plugin::install
+  require plugin::bundle
 
   Class['redmine']
   -> Class['plugin::install']
@@ -8,10 +8,10 @@ class plugin {
 }
 
 class plugin::install {
-  include plugin::install::redmine_git_hosting
-  include plugin::install::redmine_github_hook
-  include plugin::install::redmine_code_review
-  include plugin::install::redmine_local_avatars
+  require plugin::install::redmine_git_hosting
+  require plugin::install::redmine_github_hook
+  require plugin::install::redmine_code_review
+  require plugin::install::redmine_local_avatars
 }
 
 class plugin::install::redmine_local_avatars {

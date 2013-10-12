@@ -1,8 +1,8 @@
 class database {
   Class['database::setup'] -> Class['database::create']
 
-  include database::setup
-  include database::create
+  require database::setup
+  require database::create
 }
 
 class database::setup {
